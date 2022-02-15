@@ -1,0 +1,19 @@
+Player1 -> PokerGame : start
+activate PokerGame
+
+PokerGame -> PokerCard : カード情報を送る
+PokerCard -> PokerGame : カードのランク情報を返す
+
+PokerGame -> PokerPlayer : カードのランク情報を渡す
+PokerPlayer -> PokerGame : プレイヤーごとのカードランク情報として返す
+
+PokerGame -> PokerHandEvaluator : プレイヤーの役を決めるためにカード情報を渡す
+activate PokerHandEvaluator
+PokerHandEvaluator -> PokerRule2 : ルールを適用する
+PokerRule2 -> PokerHandEvaluator : 役を返す
+PokerHandEvaluator -> PokerGame :役を返す
+PokerGame -> PokerHandEvaluator : カードランクと役の情報を渡す
+PokerHandEvaluator -> PokerGame : 勝者を知らせる
+deactivate PokerHandEvaluator
+PokerGame -> Player1 : プレイヤーの役、勝者を知らせる
+deactivate PokerGame

@@ -1,0 +1,155 @@
+docker image 操作コマンド
+イメージ確認：　docker image ls -a
+ビルド：　docker image build -t イメージ名 作成ディレクトリ
+コンテナ起動：　docker container run イメージ名
+起動コンテナ確認：　docker container ls -a
+コンテナ削除：　docker container rm コンテナID
+イメージ削除：　docker image rm イメージID
+
+イメージを作成する
+docker image build [option] PATH
+  -t : タグをつける
+  -f : ファイル名を指定する
+
+イメージの一覧を確認
+docker image ls
+
+コンテナの作成・起動
+docker container run [option] image [command]
+-d : バックグラウンド実行
+--name : コンテナに名前をつける
+-it : 標準出力とターミナルをアタッチする
+
+起動コンテナ確認一覧表示
+docker container ls [option]
+-a : 全コンテナを出力
+
+コンテナ作成時にポートを公開する
+docker container run -p
+例：docker container run -d --name apache -p 8080:80 apache/latest
+
+コンテナでコマンドを実行するう
+docker container exec [option] コンテナ コマンド [引数]
+option : -it コマンドを実行したのち終了させない
+
+コンテナの停止
+docker container stop [option] コンテナ
+option: docker container stop $(docker container ls -q)全て停止する
+
+コンテナを削除する
+docker container rm [option] コンテナ
+option：docker container stop $(docker container ls -q)全て削除する
+−f：起動中のコンテナを強制削除
+
+イメージを削除する
+docker image rm [option] イメージ
+docker image rm $(docker image ls -q)全てのイメージを削除する
+
+dockerで使用していないデータを削除
+docker system prune [option]
+option: -a  :全て削除
+        --volumes:ボリュームを削除する
+        -f:強制的
+
+Dockerfileの作り方
+命令（インストラクション）
+FROM：Dockerイメーーじのベースとなるイメージの指定
+RUN：Dockerイメージをビルドするときに、コンテナ内で実行するコマンドを定義する
+  runを使う回数はできるだけ少なくする ＆＆使って複数のコマンドを一度に実行
+CMD：コンテナ起動時にデフォルトで実行するコマンドを指定
+  CMD ["実行ファイル", "パラメータ１", "パラメータ２"]
+COPY:ホストのファイルやディレクトリをDockerイメージにコピー
+  COPY コピー元 コピー先
+ENV：環境変数を設定する
+  ENV key = value
+WORKDIR：コマンドを実行する作業ディレクトリを指定する
+  WORKDIR ディレクトリパス
+ENTRYPOINT：コマンド実行時に実行したいコマンドを指定する
+  コマンド実行時に必ず実行したいコマンドを記載
+  CMDとの違い：CMD：コマンド分を上書きして実行
+              ENTRYPOINT：コマンドの引数として実行
+  runコマンドの引数に与えたものがコマンド引数になる
+
+Dockerfile作成のベストプラクティス
+  .dockerignoreファイルを使う
+    Dockerビルド時に無視するファイル/ディレクトリを指定できる
+  1つのコンテナの中では1つのプロセスだけ実行する
+  イメージのサイズはできるだけ小さくする
+    不要なパッケージをインストールしない
+    RUNをまとめる
+      マルチステージビルドを使う
+
+Docker Compose：1つのコマンドで複数のイメージやコンテナを作成・起動できる
+docker-compose.yml：Docker Composeの設定を行う、YML形式で書かれたテキストファイル
+
+docker Composeコマンド
+docker-compose up
+docker-compose up -d　バックグラウンド起動
+docker-compose up --build コンテナを作成・起動
+docker-compose ps
+docker-compose logs docker-compose run こんてなをさくせいし1度だけコマンドを実行
+docker-compose exec コンテナ　コマンド：起動中のコンテナでコマンドを実行
+docker-compose down:upで作成されたコンテナを停止・削除する
+ファイルをホストとコンテ値で共有する
+  ボリュームを使うとホストのファイルをコンテナにマウントできる
+ボリュームとバインドマウント
+ボリューム：Dockerの管理下でストレージ領域を確保する
+          Docker管理であるため機能が豊富
+バインドマウント：ホスト側のディレクトリとコンテナ内のディレクトリを共有する仕組み
+              ファイルがホストによって管理される
+使い分け：基本ボリュームを使用  バインドマウントはホストの設定ファイル・ソースコードを使いたい場合
+
+docker-compose exec db mysql -u test_user -D test_database -p
+
+データベースを構築する
+DBMS(Database Management System) : データベースを管理するシステム
+特徴：大人数で大量のデータを安全に管理できる
+種類：リレーショナルデータベース←今回はこれ
+      階層型データベース
+      オブジェクト指向データベース
+      XMLデータベース
+      NoSQLデータベース
+
+RDBMS（Relational DataBase Management System）:二次元表を用いて管理するデータベース
+MySQL, Oracle Database, PostgreSQL, Microsoft SQL server
+
+SQL(Structured Query Language) : データ操作のために備えている言語
+  英語を話すようにデータを操作できる
+  基本操作は
+    検索、登録、更新、削除
+  データ操作以外
+    データの定義、データの操作、データの制御
+  ルール
+    末尾に；
+    キーワードの大文字小文字は区別しない文字列は'で囲む
+    単語は半角スペース／改行で区切る
+
+データベースを作成
+  CREATE DATABASE データベース名;
+データベースの一覧を表示
+  SHOW DATABASES;
+使用するデータベースを指定
+  USE データベース名;
+データベースの削除
+  DROP DATABASE データベース名;
+テーブルの作成
+  CREATE TABLE テーブル名
+  (列名　データ型　列の制約,
+  列名　データ型　列の制約,
+  列名　データ型　列の制約);
+テーブルの表示
+  SHOW TABLES;
+SHOW COLUMNS FROM テーブル名;
+テーブルの修正
+  ALTER TABLE テーブル名 ADD COLUMN 列の定義
+  ALTER TABLE テーブル名 DROP COLUMN 列名
+テーブルの削除
+  DROP TABLE テーブル名
+新しい行の追加
+  INSERT INTO テーブル名 (列1,列2…) VALUES (値1，値2,…);
+データの検索
+  SELECT 列名 FROM テーブル名
+データの更新
+  UPDATE テーブル名 SET 列名=式
+データの削除
+  DELETE FROM テーブル名

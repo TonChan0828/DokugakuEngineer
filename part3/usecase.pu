@@ -1,0 +1,15 @@
+@startuml
+
+:Player1:
+:Player2:
+
+package Poker{
+  usecase "カードを配る" as UC1
+  usecase "カードの役を決める" as UC2
+  usecase "勝者を決める" as UC3
+}
+
+Player1-->UC1
+Player2-->UC1
+
+@enduml

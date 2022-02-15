@@ -1,0 +1,33 @@
+@startuml
+class PokerGame{
+  +start()
+  +getRule()
+}
+class PokerPlayer{
+  +getCardRanks()
+}
+class PokerCard{
+  +getRank()
+}
+interface PokerRule{
+  +getHand()
+}
+class PokerRule2{
+  +getHand()
+  -isPair()
+  -isStraight()
+}
+class PokerHandEvaluator{
+  +getHand()
+  +getWinner()
+  -comparePair()
+
+}
+
+PokerRule<|.. PokerRule2
+PokerGame <|-- PokerPlayer
+PokerGame <|-- PokerCard
+PokerGame <|-- PokerRule2
+PokerGame <|-- PokerHandEvaluator
+PokerHandEvaluator<|--PokerRule2
+@enduml
