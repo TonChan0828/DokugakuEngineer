@@ -153,3 +153,7 @@ SHOW COLUMNS FROM テーブル名;
   UPDATE テーブル名 SET 列名=式
 データの削除
   DELETE FROM テーブル名
+カラムに別名をつける
+  SELECT 列名 as 名前, …
+重複行を省く
+  SELECT DISTINCT(列名)
