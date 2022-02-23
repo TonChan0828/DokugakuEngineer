@@ -157,3 +157,17 @@ SHOW COLUMNS FROM テーブル名;
   SELECT 列名 as 名前, …
 重複行を省く
   SELECT DISTINCT(列名)
+指定した行数のみを取得
+  SELECT 列名 FROM テーブル名 LIMIT 行数;
+;の代わりに\Gをつけることで見にくい表示を縦表示にすることができる
+データを絞り込む
+  SELECT 列名　FROM テーブル名 WHERE 条件;
+    =：等しいレコードを取得
+    <>：等しくないレコードを取得
+    IS NULL：NULLであるものを取得
+    IN NOT NULL：NULLでないものを取得
+    LIKE：部分一致するレコードを取得
+    NOT LIKE：部分一致しないレコードを取得
+複数の条件を指定する
+  AND OR BETWEEN
+  IN, NOT IN：カラムに値が含まれる／含まれない値を取得
