@@ -171,3 +171,16 @@ SHOW COLUMNS FROM テーブル名;
 複数の条件を指定する
   AND OR BETWEEN
   IN, NOT IN：カラムに値が含まれる／含まれない値を取得
+検索条件を並び替える
+  SELECT 列名 FROM テーブル名 ORDER BY 整列キー　<ASC/DESC>
+  ASC:昇順, DESC:降順
+集計関数
+  SUM():合計, AVG():平均f, MAX():最大
+  MIN():最小, COUNT():行数
+  ROUND():四捨五入
+  Where句で集計関数は使えない
+グルーピング
+  SELECT 列名 FROM テーブル名 GROUP BY 列名
+  FROM, WHERE句の後で使う
+  GROUP BY句を使うと定数、集計関数、指定した列名しSELECT句に書けない
+  GROUP BY句二列の別名は指定できない
