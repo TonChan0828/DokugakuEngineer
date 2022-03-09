@@ -184,3 +184,5 @@ SHOW COLUMNS FROM テーブル名;
   FROM, WHERE句の後で使う
   GROUP BY句を使うと定数、集計関数、指定した列名しSELECT句に書けない
   GROUP BY句二列の別名は指定できない
+グルーピングした結果を絞る
+  SELECT 列名 FROM　テーブル名 GROUP BY 列名 HAVING グループの値に対する絞り込み条件;
