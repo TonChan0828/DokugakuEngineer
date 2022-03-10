@@ -186,3 +186,7 @@ SHOW COLUMNS FROM テーブル名;
   GROUP BY句二列の別名は指定できない
 グルーピングした結果を絞る
   SELECT 列名 FROM　テーブル名 GROUP BY 列名 HAVING グループの値に対する絞り込み条件;
+テーブル結合
+  SELECT 列名 FROM　テーブル１名 INNER JOIN テーブル２名 ON テーブル１名.列名　＝　テーブル２名.列名;
+外部結合
+  SELECT 列名 FROM テーブル名1 LEFT OUTER JOIN テーブル名2 ON テーブル名1.列名 = テーブル名2.列名;
